@@ -10,4 +10,6 @@
 // 管理网络图片下载和缓存的单例
 @interface JBWebImageManager : NSObject
 
++ (instancetype)sharedWebImageManager;
+
 @end

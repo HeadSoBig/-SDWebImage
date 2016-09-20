@@ -12,6 +12,7 @@
 //#import "UIImageView+WebCache.h"  不使用SDW
 #import "loadImageCellTableViewCell.h"
 #import "CZAdditions.h"
+#import "JBWebImageManager.h"
 
 static NSString *cellId = @"cellId";
 
