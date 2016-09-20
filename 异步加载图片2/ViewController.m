@@ -18,7 +18,7 @@ static NSString *cellId = @"cellId";
 @interface ViewController ()<UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-
+// 模型数组
 @property (nonatomic, strong) NSArray <AppInfoModel *> *appList;
 // 操作队列
 @property (nonatomic, strong) NSOperationQueue *downloadQueue;
@@ -182,6 +182,7 @@ static NSString *cellId = @"cellId";
     
     return cell;
 }
+
 #pragma mark - 返回图片保存到沙盒的全路径
 - (NSString *)cachePathWithURLString:(NSString *)urlString {
     
