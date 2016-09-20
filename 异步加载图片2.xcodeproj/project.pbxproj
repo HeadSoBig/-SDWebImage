@@ -53,6 +53,8 @@
 		DC98246B1D89551C004B0937 /* loadImageCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9824691D89551C004B0937 /* loadImageCellTableViewCell.m */; };
 		DC98246C1D89551C004B0937 /* loadImageCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC98246A1D89551C004B0937 /* loadImageCellTableViewCell.xib */; };
 		DC9824701D8E88AF004B0937 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = DC98246F1D8E88AF004B0937 /* NSString+Hash.m */; };
+		DC9824741D910851004B0937 /* JBWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9824731D910851004B0937 /* JBWebImageManager.m */; };
+		DC9824771D9108A3004B0937 /* JBWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9824761D9108A3004B0937 /* JBWebImageOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +149,10 @@
 		DC98246A1D89551C004B0937 /* loadImageCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loadImageCellTableViewCell.xib; sourceTree = "<group>"; };
 		DC98246E1D8E88AF004B0937 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		DC98246F1D8E88AF004B0937 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		DC9824721D910851004B0937 /* JBWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBWebImageManager.h; sourceTree = "<group>"; };
+		DC9824731D910851004B0937 /* JBWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBWebImageManager.m; sourceTree = "<group>"; };
+		DC9824751D9108A3004B0937 /* JBWebImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBWebImageOperation.h; sourceTree = "<group>"; };
+		DC9824761D9108A3004B0937 /* JBWebImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBWebImageOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +187,7 @@
 			children = (
 				DC9823F21D887F48004B0937 /* ThirdLib */,
 				DC9824391D887F53004B0937 /* Tools */,
+				DC9824711D910833004B0937 /* JBWebImage */,
 				DC9823DB1D887F35004B0937 /* AppDelegate.h */,
 				DC9823DC1D887F35004B0937 /* AppDelegate.m */,
 				DC9823DE1D887F35004B0937 /* ViewController.h */,
@@ -345,6 +352,17 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		DC9824711D910833004B0937 /* JBWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				DC9824721D910851004B0937 /* JBWebImageManager.h */,
+				DC9824731D910851004B0937 /* JBWebImageManager.m */,
+				DC9824751D9108A3004B0937 /* JBWebImageOperation.h */,
+				DC9824761D9108A3004B0937 /* JBWebImageOperation.m */,
+			);
+			path = JBWebImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -371,6 +389,7 @@
 		DC9823CD1D887F35004B0937 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = JB;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "王军波";
 				TargetAttributes = {
@@ -430,6 +449,7 @@
 				DC9824631D887F53004B0937 /* CZBaseViewController.m in Sources */,
 				DC9824601D887F53004B0937 /* UIViewController+CZAddition.m in Sources */,
 				DC9824301D887F48004B0937 /* SDWebImageManager.m in Sources */,
+				DC9824771D9108A3004B0937 /* JBWebImageOperation.m in Sources */,
 				DC9823E61D887F35004B0937 /* ______2.xcdatamodeld in Sources */,
 				DC9823E01D887F35004B0937 /* ViewController.m in Sources */,
 				DC9824661D888095004B0937 /* AppInfoModel.m in Sources */,
@@ -458,6 +478,7 @@
 				DC98246B1D89551C004B0937 /* loadImageCellTableViewCell.m in Sources */,
 				DC9824261D887F48004B0937 /* AFURLRequestSerialization.m in Sources */,
 				DC98245F1D887F53004B0937 /* UIView+CZAddition.m in Sources */,
+				DC9824741D910851004B0937 /* JBWebImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
