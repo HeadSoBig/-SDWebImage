@@ -8,6 +8,16 @@
 
 #import "JBWebImageManager.h"
 
+@interface JBWebImageManager()
+
+@property (nonatomic, strong) NSMutableDictionary *imageCache;
+
+@property (nonatomic, strong) NSMutableDictionary *opCache;
+// 下载队列
+@property (nonatomic, strong) NSOperationQueue *downloadQueue;
+
+@end
+
 @implementation JBWebImageManager
 
 + (instancetype)sharedWebImageManager {
@@ -21,6 +31,16 @@
     return instance;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _imageCache = [NSMutableDictionary dictionary];
+        _opCache = [NSMutableDictionary dictionary];
+        _downloadQueue = [[NSOperationQueue alloc]init];
+    }
+    return self;
+}
 @end
 
 
