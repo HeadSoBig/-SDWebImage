@@ -113,71 +113,10 @@ static NSString *cellId = @"cellId";
     
     cell.nameLabel.text = model.name;
     cell.downloadLabel.text = model.download;
-    // 判断缓存中图片是否已经存在
-    UIImage *cacheImage = _imageCache[model.icon];
-    if (cacheImage != nil) {
-        NSLog(@"缓存");
-        cell.iconView.image = cacheImage;
-        return cell;
-    }
-    // 判断沙盒中图片是否已经存在
-    cacheImage = [UIImage imageWithContentsOfFile:[self cachePathWithURLString:model.icon]];
-    if (cacheImage != nil) {
-        NSLog(@"沙盒");
-        cell.iconView.image = cacheImage;
-        // 还得设置一下缓存图片
-        [_imageCache setObject:cacheImage forKey:model.icon];
-        return cell;
-    }
-    
-    // 先设置占位图片
-    UIImage *placeholder = [UIImage imageNamed:@"user_default"];
-    cell.iconView.image = placeholder;
-    
-    // 下载图片
-    NSURL *url = [NSURL URLWithString:model.icon];
-    
-    // 判断操作是否已经存在
-    if (_opCache[model.icon] != nil) {
-        NSLog(@"正在下载 %@",model.name);
-        return cell;
-    }
-    
-    // 创建操作任务
-    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+    [[JBWebImageManager sharedWebImageManager] downloadImageWithURLString:model.icon completion:^(UIImage *image) {
         
-        NSLog(@"下载%@  下载操作数%zd  操作缓冲池%@",model.name,_downloadQueue.operationCount,_opCache);
-        // 模拟延时
-        //[NSThread sleepForTimeInterval:1];
-        // 第一张特别慢  重复下载问题
-        if (indexPath.row == 0) {
-            [NSThread sleepForTimeInterval:10];
-        }
-        
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        
-        UIImage *image = [UIImage imageWithData:data];
-        
-        if (image != nil) {
-            // 图片缓冲池记录
-            [_imageCache setObject:image forKey:model.icon];
-            // 将二进制写入沙盒
-            [data writeToFile:[self cachePathWithURLString:model.icon] atomically:YES];
-        }
-        // 清空操作缓冲池
-        [_opCache removeObjectForKey:model.icon];
-        
-        // 主线程更新
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            
-            NSLog(@"队列中下载操作数 %zd",_downloadQueue.operationCount);
-            cell.iconView.image = image;
-        }];
+        cell.iconView.image = image;
     }];
-    // 添加到操作缓冲池
-    [_opCache setObject:op forKey:model.icon];
-    
-    [_downloadQueue addOperation:op];
     
     // [cell.iconView sd_setImageWithURL:url]; 不使用SDW
     

@@ -20,6 +20,7 @@
 
 @implementation JBWebImageManager
 
+// 单例管理器
 + (instancetype)sharedWebImageManager {
     
     static id instance;
@@ -31,6 +32,7 @@
     return instance;
 }
 
+// 构造函数
 - (instancetype)init
 {
     self = [super init];
@@ -40,6 +42,23 @@
         _downloadQueue = [[NSOperationQueue alloc]init];
     }
     return self;
+}
+
+// 接口方法
+-  (void)downloadImageWithURLString:(NSString *)URLString completion:(void(^)(UIImage *))compltion {
+    
+    // 模拟异步
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        // 模拟延时
+        [NSThread sleepForTimeInterval:1.0];
+        
+        UIImage *image = [UIImage imageNamed:@"user_default"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            compltion(image);
+        });
+    });
 }
 @end
 
