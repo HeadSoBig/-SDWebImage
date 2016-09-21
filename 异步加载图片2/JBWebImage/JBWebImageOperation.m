@@ -8,6 +8,24 @@
 
 #import "JBWebImageOperation.h"
 
+@interface JBWebImageOperation()
+// 图像下载 URL
+@property (nonatomic, copy) NSString *URLString;
+// 沙盒路径
+@property (nonatomic, copy) NSString *cachePath;
+
+@end
+
 @implementation JBWebImageOperation
+
++ (instancetype)downloadOperationWithURLString:(NSString *)URLString cachePath:(NSString *)cachePath {
+    
+    JBWebImageOperation *op = [[self alloc]init];
+    
+    op.URLString = URLString;
+    op.cachePath = cachePath;
+    
+    return op;
+}
 
 @end

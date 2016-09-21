@@ -7,6 +7,8 @@
 //
 
 #import "JBWebImageManager.h"
+#import "CZAdditions.h"
+#import "JBWebImageOperation.h"
 
 @interface JBWebImageManager()
 
@@ -47,18 +49,50 @@
 // 接口方法
 -  (void)downloadImageWithURLString:(NSString *)URLString completion:(void(^)(UIImage *))compltion {
     
-    // 模拟异步
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        // 模拟延时
-        [NSThread sleepForTimeInterval:1.0];
-        
-        UIImage *image = [UIImage imageNamed:@"user_default"];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            compltion(image);
-        });
-    });
+    // 判断缓存中图片是否已经存在
+    UIImage *cacheImage = _imageCache[URLString];
+    if (cacheImage != nil) {
+        NSLog(@"缓存");
+        compltion(cacheImage);
+    }
+    // 判断沙盒中图片是否已经存在
+    NSString *cachePath = [self cachePathWithURLString:URLString];
+    cacheImage = [UIImage imageWithContentsOfFile:cachePath];
+    if (cacheImage != nil) {
+        NSLog(@"沙盒");
+        compltion(cacheImage);
+        // 还得设置一下缓存图片
+        [_imageCache setObject:cacheImage forKey:URLString];
+    }
+    
+    // 先设置占位图片
+    UIImage *placeholder = [UIImage imageNamed:@"user_default"];
+    compltion(placeholder);
+    
+    // 下载图片
+    NSURL *url = [NSURL URLWithString:URLString];
+    
+    // 判断操作是否已经存在
+    if (_opCache[URLString] != nil) {
+        NSLog(@"正在下载 %@",URLString);
+    }
+    
+    // 创建操作
+    JBWebImageOperation *op = [JBWebImageOperation downloadOperationWithURLString:URLString cachePath:cachePath];
+    // 添加到操作缓冲池
+    [_opCache setObject:op forKey:URLString];
+    // 队列添加操作
+    [_downloadQueue addOperation:op];
+
+}
+#pragma mark - 返回图片保存到沙盒的全路径
+- (NSString *)cachePathWithURLString:(NSString *)urlString {
+    
+    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    
+    NSString *fileName = [urlString cz_md5String];
+    
+    return [cacheDir stringByAppendingPathComponent:fileName];
 }
 @end
 

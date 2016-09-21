@@ -10,4 +10,7 @@
 // 下载单张图片的操作
 @interface JBWebImageOperation : NSOperation
 
+// 下载单张图片  下载成功写入沙盒
++ (instancetype)downloadOperationWithURLString:(NSString *)URLString cachePath:(NSString *)cachePath;
+
 @end
